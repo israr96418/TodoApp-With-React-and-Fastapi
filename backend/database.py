@@ -1,7 +1,7 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
-
+from .config import setting
 
 def get_db():
     db=sessionlocal()
@@ -9,8 +9,8 @@ def get_db():
         yield db
     finally:
         db.close()
+sqlalchemy_database_url =f"mysql+mysqldb://{setting.database_username}:{setting.database_password}@{setting.database_hostname}:{setting.database_port}/{setting.database_name}"
 
-sqlalchemy_database_url ="mysql+mysqldb://isrardawar:dawar96418@localhost:3306/todo"
 engine = create_engine(sqlalchemy_database_url)
 
 sessionlocal = sessionmaker(autocommit=False,autoflush=False,bind=engine)
